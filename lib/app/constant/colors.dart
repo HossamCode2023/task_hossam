@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 
 
-class AppColor {
+class AppColors {
  Color mainColor = Color(0xff062029);
  Color yellowColor = Color(0xffFFF50A);
  Color secondYellowColor = Color(0xffD0FD3E);

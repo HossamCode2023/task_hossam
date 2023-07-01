@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:task_hossam/app/constant/colors.dart';
+import 'package:task_hossam/app/constant/size.dart';
 
 
 class SplashView extends StatelessWidget {
@@ -10,10 +10,12 @@ class SplashView extends StatelessWidget {
       Get.offNamed('/home');
     });
 
-    return Scaffold(
-      backgroundColor: AppColor().secondYellowColor ,
-      body: Center(
-        child: Text('Company Name',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.w500),),
+    return SafeArea(
+      child: Scaffold(
+        
+        body: Center(
+          child: Text('Company Name',style: TextStyle(fontSize: splashText,fontWeight: FontWeight.w500),),
+        ),
       ),
     );
   }
