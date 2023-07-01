@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:task_hossam/app/constant/colors.dart';
 
 
 class SplashView extends StatelessWidget {
@@ -10,8 +11,9 @@ class SplashView extends StatelessWidget {
     });
 
     return Scaffold(
+      backgroundColor: AppColor().secondYellowColor ,
       body: Center(
-        child: Text('Splash Screen'),
+        child: Text('Company Name',style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.w500),),
       ),
     );
   }
