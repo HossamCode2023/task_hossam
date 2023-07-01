@@ -1,0 +1,1 @@
+class SomthingWrongException implements Exception {}
