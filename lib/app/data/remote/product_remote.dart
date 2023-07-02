@@ -7,7 +7,6 @@ import '../../constant/headers.dart';
 import '../../services/failures.dart';
 import '../../services/logger.dart';
 import '../../services/network.dart';
-import '../models/products_cart_model.dart';
 
 class ProductRemoteDataSource {
   final NetworkManager _networkManager = NetworkManager(Dio());
@@ -17,13 +16,19 @@ class ProductRemoteDataSource {
 
 
 
-
-   Future<Either<Failures, ProductsCart>> getProduct(Map<String, dynamic> data) async {
+ Map? productsCart;
+   Future<Either<Failures, Map>> getProduct(
+    Map<String, dynamic> data
+    ) async {
     try {
-      final response = await _networkManager.request(RequestMethod.get, ApiEndPoints.baseUrl + ApiEndPoints.endpoints.products, data: data, headers: AppHeaders.headers);
+      final response = await _networkManager.request(RequestMethod.get,ApiEndPoints.baseUrl + ApiEndPoints.endpoints,
+       data: data,
+        headers: AppHeaders.headers);
       _log.i(response.data);
-      ProductsCart productModel = ProductsCart.fromJson(response.data['data']);
-      return Right(productModel);
+      productsCart = response.data;
+      print('=====================$productsCart');
+      // ProductsCart productModel = ProductsCart.fromJson(response.data['products']);
+      return Right(productsCart!);
     } catch (e) {
       return Left(SomthingWrongFailures());
     }

@@ -7,6 +7,7 @@ import '../modules/home/views/home_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 
+
 part 'app_routes.dart';
 
 class AppPages {
@@ -27,8 +28,9 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SPLASH,
-      page: () =>  SplashView(),
+      page: () => SplashView(),
       binding: SplashBinding(),
     ),
+  
   ];
 }

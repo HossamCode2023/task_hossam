@@ -17,75 +17,13 @@ class CartView extends GetView<CartController> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors().white,
-        //===================== AppBar Widget =====================================
         appBar: AppBar(
             elevation: 0.0,
             backgroundColor: AppColors().white,
             centerTitle: true,
             toolbarHeight: 100.0,
-            title: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Cart',
-                    style: TextStyle(
-                        color: AppColors().black,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    height: 25.0,
-                    width: 25.0,
-                    margin: EdgeInsets.only(top: 20.0),
-                    decoration: BoxDecoration(
-                      color: AppColors().red,
-                      borderRadius: BorderRadius.circular(45.0),
-                    ),
-                    child: Center(
-                      child: Text(
-                        '3',
-                        style: TextStyle(
-                          color: AppColors().white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            leading: InkWell(
-              onTap: () {
-                Get.back();
-              },
-              child: Container(
-                // height: 40.0,
-                margin: EdgeInsets.only(
-                    left: primyDefMargin / 1.5, top: 30, bottom: 30.0),
-                height: 70.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(45.0),
-                  color: AppColors().white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors().grey,
-                      spreadRadius: 3.0,
-                      blurRadius: 2.0,
-                      offset: Offset(0, 3),
-                    ),
-                  ],
-                ),
-
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Center(
-                    child: Icon(Icons.arrow_back_ios, color: AppColors().black),
-                  ),
-                ),
-              ),
-            )),
+            title: _TitleAppBat(),
+            leading: _LeadingAppBar()),
         body: Stack(
           children: [
             ProductDetails(
@@ -111,6 +49,88 @@ class CartView extends GetView<CartController> {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _LeadingAppBar extends StatelessWidget {
+  const _LeadingAppBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Get.back();
+      },
+      child: Container(
+        margin: EdgeInsets.only(
+            left: primyDefMargin / 1.5, top: 30, bottom: 30.0),
+        height: 70.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(45.0),
+          color: AppColors().white,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors().grey,
+              spreadRadius: 3.0,
+              blurRadius: 2.0,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Center(
+            child: Icon(Icons.arrow_back_ios, color: AppColors().black),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _TitleAppBat extends StatelessWidget {
+  const _TitleAppBat({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Cart',
+            style: TextStyle(
+                color: AppColors().black,
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold),
+          ),
+          Container(
+            height: 25.0,
+            width: 25.0,
+            margin: EdgeInsets.only(top: 20.0),
+            decoration: BoxDecoration(
+              color: AppColors().red,
+              borderRadius: BorderRadius.circular(45.0),
+            ),
+            child: Center(
+              child: Text(
+                '3',
+                style: TextStyle(
+                  color: AppColors().white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

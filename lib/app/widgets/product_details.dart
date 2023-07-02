@@ -144,7 +144,7 @@ class countCart extends StatelessWidget {
               style: TextStyle(
                 color: AppColors().black,
                 fontWeight: FontWeight.w500,
-                fontSize: 25.0,
+                fontSize: 16.0,
               ),
             ),
           ),

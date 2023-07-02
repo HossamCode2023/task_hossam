@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:task_hossam/app/constant/colors.dart';
 import '../../../widgets/buttom_1.dart';
 import '../../../widgets/product_details.dart';
 import '../controllers/home_controller.dart';
@@ -16,11 +15,22 @@ class HomeView extends GetView<HomeController> {
       child: Scaffold(
         body: Stack(
           children: [
-            ProductDetails(
-              visible: true,
-            imageLink: 'https://i.dummyjson.com/data/products/1/3.jpg',
-            details: 'test',
-            product: 'Product'
+            GetBuilder<HomeController>(
+              init: HomeController(),
+              builder: (controller) {
+                // ignore: unnecessary_null_comparison
+                return controller.productsCart!['products'] == null? CircularProgressIndicator() :
+                ListView.builder(
+                  itemCount: controller.proCart!.products.length,
+                  itemBuilder: (context, index) => 
+                   ProductDetails(
+                  visible: true,
+                              imageLink: controller.proCart!.products[index].thumbnail,
+                              details: controller.proCart!.products[index].category,
+                              product: controller.proCart!.products[index].title
+                              ),
+                );
+              },
             ),
             Positioned(
                 child: Container(

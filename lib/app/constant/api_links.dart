@@ -2,10 +2,5 @@
 
 class ApiEndPoints {
   static const String baseUrl = 'https://dummyjson.com/';
-  static _EndPoints endpoints = _EndPoints().products as _EndPoints;
-}
-
-class _EndPoints {
-  final String products = 'products';
-  
+  static const String endpoints = 'products';
 }
