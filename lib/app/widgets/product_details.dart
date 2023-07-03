@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:task_hossam/app/modules/cart/controllers/cart_controller.dart';
 import 'package:task_hossam/app/modules/home/controllers/home_controller.dart';
 
 import '../constant/colors.dart';
 import '../constant/size.dart';
+import '../data/models/products_cart_model.dart';
 
 class ProductDetails extends StatelessWidget {
   final String imageLink;
   final String product;
   final String details;
   final bool visible;
+  final ProductsCartModel productsCartModel;
   const ProductDetails({
     Key? key,
     required this.imageLink,
     required this.product,
-    required this.details, required this.visible, 
+    required this.details, required this.visible,  required this.productsCartModel, 
   }) : super(key: key);
 
   @override
@@ -89,7 +92,9 @@ class ProductDetails extends StatelessWidget {
                             size: 45.0,
                           )),
                 ):Text(''),
-                countCart(),
+                countCart(
+                  productsCartModel: productsCartModel,
+                ),
               ],
             ),
           ),
@@ -100,13 +105,15 @@ class ProductDetails extends StatelessWidget {
 }
 
 class countCart extends StatelessWidget {
-  const countCart({
-    Key? key,
+  final ProductsCartModel productsCartModel;
+   countCart({
+    Key? key, required this.productsCartModel,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-       final HomeController controller = HomeController();
+       final HomeController controller = Get.put(HomeController());
+      final CartController cartController = Get.put(CartController());
 
     return Container(
       height: 50.0,
@@ -143,6 +150,7 @@ class countCart extends StatelessWidget {
               ),
               child: IconButton(
                 onPressed: () {
+                  cartController.addProductToCart(productsCartModel);
                   controller.increment();
                   controller.update();
                 },
@@ -195,4 +203,5 @@ class countCart extends StatelessWidget {
       ),
     );
   }
+
 }

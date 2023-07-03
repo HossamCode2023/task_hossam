@@ -21,14 +21,7 @@ class HomeController extends GetxController {
   var isPressed1 = false.obs;
 
   ProductsCartModel? proCart;
-// Product? product;
-  // ProductItemCartList? productList = [].obs as ProductItemCartList?;
 
-  // void addListCart(int index) async {
-  //   productList!.title = proCart!.products[index].title;
-  //     // product!.add(myData);
-  //     update();
-  //   }
   
 
   Future<Object> getProduct(Map<String, dynamic> data) async {
@@ -80,11 +73,13 @@ class HomeController extends GetxController {
                   size: 15,
                 ),
       );
-    }
-    update();
+update();
     myBox!.put('counter' , counter.toString());
     print('=================counter =========$counter');
     print('=================myBox =========${myBox!.get('counter')}');
+
+    }
+    
 
   }
 
@@ -108,20 +103,5 @@ class HomeController extends GetxController {
     }
   }
 
-// ====== dictionary for add product
-  List _cartItems = [].obs;
-
-  get shopeItems => shopeItems;
-  get cartItems => cartItems;
-
-  void addItemsToCart(int index) {
-    cartItems.add(shopeItems[index]);
-update();
-}
-
- void removeItemsToCart(int index) {
-    cartItems.removeAt(index);
-update();
-}
 
 }

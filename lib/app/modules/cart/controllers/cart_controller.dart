@@ -1,34 +1,43 @@
 import 'package:get/get.dart';
 
-class CartItem {
-  final String imageLink;
-  final String title;
-  final String details;
-  int quantity;
+import '../../../data/models/products_cart_model.dart';
 
-  CartItem( this.imageLink, this.title, this.details, this.quantity );
-}
+
 
 class CartController extends GetxController {
-  final cartItems = <CartItem>[].obs;
 
-  int get total => cartItems.fold(0, (total, item) => total +  item.quantity);
 
-  void addItem(CartItem item) {
-    final index = cartItems.indexWhere((i) => i.title == item.title);
-    if (index != -1) {
-      cartItems[index].quantity++;
-    } else {
-      cartItems.add(item);
-    }
-  }
+var productsMap = {}.obs;
 
-  void removeItem(CartItem item) {
-    cartItems.removeWhere((i) => i.title == item.title);
-  }
 
-  void clear() {
-    cartItems.clear();
-  }
+
+
+void addProductToCart (ProductsCartModel productsCartModel){
+if (productsMap.containsKey(productsCartModel)) {
+  productsMap[productsCartModel] += 1;
+  // productsMap.entries.map((e) => e.key.title).toList();
+  print(productsMap);
+}else{
+  productsMap[productsCartModel] = 1;
+  // productsMap.entries.map((e) => e.key.title).toList();
+
+}
+}
+
+void removeProductsFromCart(){
+
+}
+
+void removeOneProduct(){
+
+}
+
+
+void clearAllProduct (){
+
+}
+
+
+
 }
 

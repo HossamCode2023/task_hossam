@@ -27,7 +27,7 @@ class HomeView extends GetView<HomeController> {
                     : ListView.builder(
                         itemCount: controller.proCart!.products.length,
                         itemBuilder: (context, index) => ProductDetails(
-                          
+                          productsCartModel: controller.proCart!,
                             visible: true,
                             imageLink:
                                 controller.proCart!.products[index].thumbnail,

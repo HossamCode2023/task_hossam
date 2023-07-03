@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_hossam/app/constant/colors.dart';
 import 'package:task_hossam/app/constant/size.dart';
+import 'package:task_hossam/app/modules/home/controllers/home_controller.dart';
 
 import '../../../services/settingServices.dart';
 import '../../../widgets/buttom_1.dart';
@@ -14,7 +15,7 @@ class CartView extends GetView<CartController> {
   @override
   Widget build(BuildContext context) {
     final heightScreen = MediaQuery.of(context).size.height;
-
+final HomeController cartController = Get.put(HomeController());
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors().white,
@@ -28,7 +29,7 @@ class CartView extends GetView<CartController> {
         body: Stack(
           children: [
             ProductDetails(
-              
+              productsCartModel: cartController.proCart!,
                 visible: false,
                 imageLink: 'https://i.dummyjson.com/data/products/1/3.jpg',
                 details: 'test',
