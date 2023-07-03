@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:task_hossam/app/constant/colors.dart';
 import 'package:task_hossam/app/constant/size.dart';
 
+import '../../../services/settingServices.dart';
 import '../../../widgets/buttom_1.dart';
 import '../../../widgets/product_details.dart';
 import '../controllers/cart_controller.dart';
@@ -27,6 +28,7 @@ class CartView extends GetView<CartController> {
         body: Stack(
           children: [
             ProductDetails(
+              
                 visible: false,
                 imageLink: 'https://i.dummyjson.com/data/products/1/3.jpg',
                 details: 'test',
@@ -121,7 +123,7 @@ class _TitleAppBat extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                '3',
+                myBox!.get('counter'),
                 style: TextStyle(
                   color: AppColors().white,
                   fontSize: 16,

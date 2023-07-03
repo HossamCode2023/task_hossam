@@ -1,21 +1,26 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:task_hossam/app/modules/home/controllers/home_controller.dart';
+
 
 import '../constant/colors.dart';
 
 class Bottom_1Widget extends StatelessWidget {
   final text;
+  final basketCount;
   final bool visible;
   Function() ontap;
   Bottom_1Widget({
    
     required this.text,
-    required this.ontap, required this.visible,
+    required this.ontap, required this.visible, this.basketCount,
   });
 
   @override
   Widget build(BuildContext context) {
+   final HomeController controller = Get.put(HomeController());
     return Stack(
       children: [
         Center(
@@ -49,11 +54,13 @@ class Bottom_1Widget extends StatelessWidget {
                 
                 borderRadius: BorderRadius.circular(45.0),
               ),
-              child: Center(child:  Text('3',style: TextStyle(
+              child: Center(child:  Obx(() =>  Text(controller.counter.value.toString(),style: TextStyle(
                         color: AppColors().red,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                       ),),),
+                       ),
+                       ),)),
+                       
               ):Text(''),
                   ],
                 ),

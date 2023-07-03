@@ -1,22 +1,34 @@
 import 'package:get/get.dart';
 
-class CartController extends GetxController {
+class CartItem {
+  final String imageLink;
+  final String title;
+  final String details;
+  int quantity;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  CartItem( this.imageLink, this.title, this.details, this.quantity );
 }
+
+class CartController extends GetxController {
+  final cartItems = <CartItem>[].obs;
+
+  int get total => cartItems.fold(0, (total, item) => total +  item.quantity);
+
+  void addItem(CartItem item) {
+    final index = cartItems.indexWhere((i) => i.title == item.title);
+    if (index != -1) {
+      cartItems[index].quantity++;
+    } else {
+      cartItems.add(item);
+    }
+  }
+
+  void removeItem(CartItem item) {
+    cartItems.removeWhere((i) => i.title == item.title);
+  }
+
+  void clear() {
+    cartItems.clear();
+  }
+}
+

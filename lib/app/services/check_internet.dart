@@ -5,30 +5,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-checkInternet()async
-{
-try {
-  
-var result = await InternetAddress.lookup('google.com');
-if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  print('=============== Check Internet ==========================');
-  print(result);
-  print('=============== Check Internet ==========================');
+checkInternet() async {
+  try {
+    var result = await InternetAddress.lookup('google.com');
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      print('=============== Check Internet $result==========================');
 
-  return true;
-  
-}
+      return true;
+    }
+  } on SocketException catch (e) {
+    print('=============== Check Internet $e==========================');
 
+    return AlertDialog(
+      title: Text('Error'),
+      content: Text('No connection with internet '),
 
-}on SocketException catch (e) {
-  Get.snackbar('Error', 'No internet connection',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white);
-  print('=============== Check Internet ==========================');
-  print(e);
-  print('=============== Check Internet ==========================');
-  return false;
-}
-
+    );
+  }
 }

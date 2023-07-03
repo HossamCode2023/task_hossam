@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:task_hossam/app/modules/home/controllers/home_controller.dart';
 
 import '../constant/colors.dart';
 import '../constant/size.dart';
@@ -13,11 +15,12 @@ class ProductDetails extends StatelessWidget {
     Key? key,
     required this.imageLink,
     required this.product,
-    required this.details, required this.visible,
+    required this.details, required this.visible, 
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+   final HomeController controller = HomeController();
     final widthScreen = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.all(primyDefMargin),
@@ -68,15 +71,23 @@ class ProductDetails extends StatelessWidget {
           Container(
             margin: EdgeInsets.symmetric(vertical: primyDefMargin / 2),
             padding: EdgeInsets.only(right: primyDefMargin / 2),
-            width: (widthScreen / 3) - primyDefMargin - 10,
+            width: (widthScreen / 3) - primyDefMargin ,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                visible == true? Icon(
-                  Icons.favorite,
-                  color: AppColors().red,
-                  size: 40.0,
+                
+                visible == true? 
+                InkWell(
+                  onTap: () {
+                    controller.isPressed1.value = !controller.isPressed1.value;
+                  },
+                  child: Obx(() => Icon(
+                         
+                                 Icons.favorite,
+                            color: controller.isPressed1.value ? Colors.red : Colors.grey,
+                            size: 45.0,
+                          )),
                 ):Text(''),
                 countCart(),
               ],
@@ -95,6 +106,8 @@ class countCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+       final HomeController controller = HomeController();
+
     return Container(
       height: 50.0,
       decoration: BoxDecoration(
@@ -129,7 +142,10 @@ class countCart extends StatelessWidget {
                 borderRadius: BorderRadius.circular(45.0),
               ),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.increment();
+                  controller.update();
+                },
                 icon: FaIcon(
                   FontAwesomeIcons.plus,
                   color: AppColors().black,
@@ -139,14 +155,14 @@ class countCart extends StatelessWidget {
           //================ Counter ===============================
           Padding(
             padding: const EdgeInsets.all(5.0),
-            child: Text(
-              '1',
+            child: Obx(() => Text(
+              controller.counter.string ,
               style: TextStyle(
                 color: AppColors().black,
                 fontWeight: FontWeight.w500,
-                fontSize: 16.0,
+                fontSize: 20.0,
               ),
-            ),
+            ),),
           ),
           //========================== [-]=========================
 
@@ -166,7 +182,9 @@ class countCart extends StatelessWidget {
                 borderRadius: BorderRadius.circular(45.0),
               ),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.descrement();
+                },
                 icon: FaIcon(
                   FontAwesomeIcons.minus,
                   color: AppColors().black,
