@@ -10,7 +10,7 @@ import '../../../data/models/products_cart_model.dart';
 class CartController extends GetxController {
 
 
-var productsMap = {}.obs;
+ var productsMap = {}.obs;
 
 
 

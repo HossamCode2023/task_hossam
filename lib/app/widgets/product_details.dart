@@ -224,19 +224,15 @@ class countCart extends StatelessWidget {
 }
 
 class ProductDetailsTwo extends StatelessWidget {
-  final String imageLink;
-  final String product;
-  final String details;
+ 
   final bool visible;
-  //  final Product productModel;
+   final Product productModel;
   
    ProductDetailsTwo({
     Key? key,
-    required this.imageLink,
-    required this.product,
-    required this.details,
+   
     required this.visible,
-    //  required this.productModel, 
+     required this.productModel, 
     
  
   }) : super(key: key);
@@ -269,7 +265,7 @@ class ProductDetailsTwo extends StatelessWidget {
             height: 170.0,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(imageLink), fit: BoxFit.cover),
+                  image: NetworkImage(productModel.thumbnail), fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(15.0),
             ),
           ),
@@ -280,12 +276,12 @@ class ProductDetailsTwo extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  product,
+                  productModel.title,
                   style: TextStyle(
                       fontSize: productTitleText, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  details,
+                  productModel.category,
                   style: TextStyle(fontSize: productDetailText),
                 ),
               ],

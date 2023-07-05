@@ -9,10 +9,11 @@ import '../../../widgets/buttom_1.dart';
 import '../../../widgets/product_details.dart';
 import '../controllers/cart_controller.dart';
 
-class CartView extends GetView<CartController> {
-  const CartView({Key? key}) : super(key: key);
+class CartView extends StatelessWidget {
+  CartView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Get.put(CartController());
     final heightScreen = MediaQuery.of(context).size.height;
 // final HomeController controller = Get.put(HomeController());
     return SafeArea(
@@ -27,12 +28,23 @@ class CartView extends GetView<CartController> {
             leading: _LeadingAppBar()),
         body: Stack(
           children: [
-            ProductDetailsTwo(
-        
-                visible: false,
-                imageLink: 'https://i.dummyjson.com/data/products/1/3.jpg',
-                details: 'test',
-                product: 'Product'),
+            GetBuilder<CartController>(
+              init: CartController(),
+              builder: (controller) {
+                return ListView.separated(
+                  itemCount: controller.productsMap.length,
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 1.0,
+                  ),
+                  itemBuilder: (context, index) {
+                    return ProductDetailsTwo(
+                      productModel: controller.productsMap.keys.toList()[index],
+                      visible: false,
+                    );
+                  },
+                );
+              },
+            ),
             Positioned(
               child: Container(
                 margin: EdgeInsets.only(top: heightScreen * 0.70),
@@ -68,8 +80,8 @@ class _LeadingAppBar extends StatelessWidget {
         Get.back();
       },
       child: Container(
-        margin: EdgeInsets.only(
-            left: primyDefMargin / 1.5, top: 30, bottom: 30.0),
+        margin:
+            EdgeInsets.only(left: primyDefMargin / 1.5, top: 30, bottom: 30.0),
         height: 70.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(45.0),
@@ -83,7 +95,6 @@ class _LeadingAppBar extends StatelessWidget {
             ),
           ],
         ),
-
         child: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Center(
@@ -102,6 +113,7 @@ class _TitleAppBat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CartController cartCountroller = Get.put(CartController());
     return Center(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -122,15 +134,16 @@ class _TitleAppBat extends StatelessWidget {
               borderRadius: BorderRadius.circular(45.0),
             ),
             child: Center(
-              child: Text(
-                myBox!.get('basketCount'),
+                child: Obx(
+              () => Text(
+                cartCountroller.productsMap.length.toString(),
                 style: TextStyle(
                   color: AppColors().white,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
+            )),
           )
         ],
       ),
