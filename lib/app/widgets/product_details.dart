@@ -17,14 +17,17 @@ class ProductDetails extends StatelessWidget {
   final bool visible;
    final Product productModel;
   final int index;
-  final String qty;
+ 
+
    ProductDetails({
     Key? key,
     required this.imageLink,
     required this.product,
     required this.details,
     required this.visible,
-     required this.productModel, required this.index, required this.qty, 
+     required this.productModel, 
+     required this.index,
+      
     
  
   }) : super(key: key);
@@ -32,7 +35,7 @@ class ProductDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final  controller = Get.find<HomeController>();
+    final  controller = Get.find<CartController>();
     final widthScreen = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.all(primyDefMargin),
@@ -103,11 +106,10 @@ class ProductDetails extends StatelessWidget {
                             ),
                       )
                     : Text(''),
-                countCart(
-                  qty: qty,
-          productModel: productModel,
-          index: index,
-                ),
+                    IconButton(onPressed: (){
+                      controller.addProductToCart(productModel);
+                    }, icon: Icon(Icons.shopping_cart,size: 35,color: AppColors().red,)),
+         
               ],
             ),
           ),
@@ -118,117 +120,6 @@ class ProductDetails extends StatelessWidget {
   }
 }
 
-class countCart extends StatelessWidget {
-  final Product productModel;
-  final int index;
-  final String qty;
-  // finl int 
-  
-  countCart({
-    Key? key,
- required this.productModel, required this.index, required this.qty, 
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final  controller = Get.put(HomeController());
-    final  cartController = Get.put(CartController());
-
-    return Container(
-      height: 50.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(45.0),
-        color: AppColors().white,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors().grey,
-            spreadRadius: 1.0,
-            blurRadius: 1.0,
-            offset: Offset.zero,
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          //========================[+]=======================
-          Container(
-              height: 35.0,
-              width: 35.0,
-              decoration: BoxDecoration(
-                color: AppColors().red,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey[300]!,
-                    spreadRadius: 1.0,
-                    blurRadius: 1.0,
-                    offset: Offset(0, 1),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(45.0),
-              ),
-              child: IconButton(
-                onPressed: () {
-                  controller.increment();
-                  cartController.addProductToCart(productModel );
-                 cartController.update();
-                  controller.update();
-
-                },
-                icon: FaIcon(
-                  FontAwesomeIcons.plus,
-                  color: AppColors().black,
-                  size: 15,
-                ),
-              ),
-              ),
-          //================ Counter ===============================
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Text(
-                qty,
-                style: TextStyle(
-                  color: AppColors().black,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 20.0,
-                ),
-              ),
-          ),
-          //========================== [-]=========================
-
-          Container(
-              height: 35.0,
-              width: 35.0,
-              decoration: BoxDecoration(
-                color: AppColors().red,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey[300]!,
-                    spreadRadius: 1.0,
-                    blurRadius: 1.0,
-                    offset: Offset(0, 1),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(45.0),
-              ),
-              child: IconButton(
-                onPressed: () {
-                  controller.descrement();
-                  cartController.removeProductsFromCart(productModel);
-                  cartController.update();
-                  controller.update();
-                },
-                icon: FaIcon(
-                  FontAwesomeIcons.minus,
-                  color: AppColors().black,
-                  size: 15,
-                ),
-              )),
-        ],
-      ),
-    );
-  }
-}
 
 class ProductDetailsTwo extends StatelessWidget {
  
@@ -319,17 +210,7 @@ class ProductDetailsTwo extends StatelessWidget {
                               size: 45.0,
                             ),
                       )
-                    :  InkWell(
-                        onTap: () {
-                          cartController.removeOneProduct(productModel);
-                        },
-                        child: Icon(
-                              Icons.delete,
-                              color:  Colors.red,
-                                 
-                              size: 35.0,
-                            ),
-                      ),
+                    :  Text(''),
                 countCartTwo(
                   qty: qty,
           productModel: productModel,

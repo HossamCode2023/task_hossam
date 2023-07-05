@@ -27,7 +27,7 @@ class HomeView extends GetView<HomeController> {
                     : ListView.builder(
                         itemCount: controller.productsCartModel!.products.length,
                         itemBuilder: (context, index) => ProductDetails(
-                          qty:controller.counter.value.toString(),
+                          
                           index: index,
                      productModel: controller.productsCartModel!.products[index],
                             visible: true,

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import '../data/models/products_cart_model.dart';
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
 import '../modules/home/bindings/home_binding.dart';
