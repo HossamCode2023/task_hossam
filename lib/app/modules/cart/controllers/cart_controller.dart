@@ -20,11 +20,13 @@ if (productsMap.containsKey(productModel)) {
   productsMap[productModel] += 1;
   print(productsMap.entries.map((e) => e.key.title  ).toList());
   print(productsMap.length.toString());
+  print(productsMap.keys.length.toString());
   myBox!.put('basketCount', productsMap.length.toString());
 }else{
   productsMap[productModel] = 1;
   print(productsMap.entries.map((e) => e.key.title ).toList());
   print(productsMap.length .toString());
+  print(productsMap.keys.length.toString());
     myBox!.put('basketCount', productsMap.length.toString());
 
 

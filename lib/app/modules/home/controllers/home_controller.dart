@@ -25,7 +25,7 @@ class HomeController extends GetxController {
   var isPressed1 = false.obs;
 
   ProductsCartModel? productsCartModel;
- Map testProduct = {};
+
   Future<Object> getProduct(Map<String, dynamic> data) async {
     try {
       final response = await _networkManager.request(
@@ -34,16 +34,8 @@ class HomeController extends GetxController {
       _log.i(response.data);
       isLoading = false;
       update();
-      //======================== test ==========================
       productsCartModel = ProductsCartModel.fromJson(response.data);
-     testProduct.addAll(response.data);
-      update();
-      print('======================== testProduct =====================');
-      print(testProduct['products'][0]);
-      print('======================== testProduct =====================');
-
-      //======================== test ==========================
-
+     
       update();
 
       print('======================${productsCartModel!.products.length}');
@@ -72,7 +64,10 @@ class HomeController extends GetxController {
   }
 
   void increment() {
-    
+       counter.value++;
+  myBox!.put('counter', counter.toString());
+    print('=================counter =========$counter');
+    print('=================myBox =========${myBox!.get('counter')}');
     if (counter >= 1) {
       Get.snackbar(
         'Product Added',
@@ -86,18 +81,12 @@ class HomeController extends GetxController {
         ),
       );
       
-      update();
- myBox!.put('counter', counter.toString());
-    print('=================counter =========$counter');
-    print('=================myBox =========${myBox!.get('counter')}');
+
     }
-   counter.value++;
+          update();
+ 
   }
-//  void addQty(int index){
-//   if (productsCartModel!.products[index].qty! == null) {
-//     productsCartModel!.products[index].qty =  (productsCartModel!.products[index].qty! + 1);
-//   }
-//  }
+
   void descrement() {
     if (counter.value > 0) {
       counter.value--;

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:task_hossam/app/constant/colors.dart';
 import 'package:task_hossam/app/constant/size.dart';
 
-import '../../../services/settingServices.dart';
 import '../../../widgets/buttom_1.dart';
 import '../../../widgets/product_details.dart';
 import '../controllers/cart_controller.dart';
@@ -38,6 +37,7 @@ class CartView extends StatelessWidget {
                   ),
                   itemBuilder: (context, index) {
                     return ProductDetailsTwo(
+                      qty:controller.productsMap.values.toList()[index].toString() ,
                       productModel: controller.productsMap.keys.toList()[index],
                       visible: false,
                     );

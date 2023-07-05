@@ -1,12 +1,9 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:task_hossam/app/modules/home/controllers/home_controller.dart';
 
 
 import '../constant/colors.dart';
-import '../services/settingServices.dart';
 
 class Bottom_1Widget extends StatelessWidget {
   final text;
@@ -21,7 +18,7 @@ class Bottom_1Widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final HomeController controller = Get.put(HomeController());
+  //  final HomeController controller = Get.put(HomeController());
     return Stack(
       children: [
         Center(

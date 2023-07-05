@@ -1,17 +1,18 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unnecessary_null_comparison
 
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../services/settingServices.dart';
 import '../../../widgets/buttom_1.dart';
 import '../../../widgets/product_details.dart';
+import '../../cart/controllers/cart_controller.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final  cartController = Get.put(CartController());
     // final HomeController controller = Get.put(HomeController());
     final heightScreen = MediaQuery.of(context).size.height;
     return SafeArea(
@@ -21,12 +22,12 @@ class HomeView extends GetView<HomeController> {
             GetBuilder<HomeController>(
               init: HomeController(),
               builder: (controller) {
-                // ignore: unnecessary_null_comparison
                 return controller.isLoading == true
                     ? Center(child: CircularProgressIndicator())
                     : ListView.builder(
                         itemCount: controller.productsCartModel!.products.length,
                         itemBuilder: (context, index) => ProductDetails(
+                          qty:controller.counter.value.toString(),
                           index: index,
                      productModel: controller.productsCartModel!.products[index],
                             visible: true,
@@ -44,15 +45,15 @@ class HomeView extends GetView<HomeController> {
                 height: 250,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 50.0),
-                  child:  Bottom_1Widget(
-                    basketCount:controller.counter.string ,
+                  child:  Obx(() => Bottom_1Widget(
+                    basketCount:cartController.productsMap.length.toString() ,
                     visible: true,
                     text: 'basket',
                     ontap: () {
                       // controller.addProduct( Product.pro);
                       Get.toNamed('/cart');
                     },
-                  ),
+                  ),)
                 ),
               ),
             )

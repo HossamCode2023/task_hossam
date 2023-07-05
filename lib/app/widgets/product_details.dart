@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -15,13 +17,14 @@ class ProductDetails extends StatelessWidget {
   final bool visible;
    final Product productModel;
   final int index;
+  final String qty;
    ProductDetails({
     Key? key,
     required this.imageLink,
     required this.product,
     required this.details,
     required this.visible,
-     required this.productModel, required this.index, 
+     required this.productModel, required this.index, required this.qty, 
     
  
   }) : super(key: key);
@@ -29,9 +32,9 @@ class ProductDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final  controller = Get.find<HomeController>();
+    // final  controller = Get.find<HomeController>();
     final widthScreen = MediaQuery.of(context).size.width;
-    return Obx(() => Container(
+    return Container(
       margin: EdgeInsets.all(primyDefMargin),
       height: 180.0,
       decoration: BoxDecoration(
@@ -101,6 +104,7 @@ class ProductDetails extends StatelessWidget {
                       )
                     : Text(''),
                 countCart(
+                  qty: qty,
           productModel: productModel,
           index: index,
                 ),
@@ -109,19 +113,20 @@ class ProductDetails extends StatelessWidget {
           ),
         ],
       ),
-    ),
-    );
+    
+     ) ;
   }
 }
 
 class countCart extends StatelessWidget {
   final Product productModel;
   final int index;
+  final String qty;
   // finl int 
   
   countCart({
     Key? key,
- required this.productModel, required this.index, 
+ required this.productModel, required this.index, required this.qty, 
   }) : super(key: key);
 
   @override
@@ -169,7 +174,6 @@ class countCart extends StatelessWidget {
                  cartController.update();
                   controller.update();
 
-                // controller.addQty(index);
                 },
                 icon: FaIcon(
                   FontAwesomeIcons.plus,
@@ -181,14 +185,14 @@ class countCart extends StatelessWidget {
           //================ Counter ===============================
           Padding(
             padding: const EdgeInsets.all(5.0),
-            child:Obx(() => Text(
-                controller.counter.string,
+            child: Text(
+                qty,
                 style: TextStyle(
                   color: AppColors().black,
                   fontWeight: FontWeight.w500,
                   fontSize: 20.0,
                 ),
-              ),)
+              ),
           ),
           //========================== [-]=========================
 
@@ -230,12 +234,13 @@ class ProductDetailsTwo extends StatelessWidget {
  
   final bool visible;
    final Product productModel;
+   final String qty;
   
    ProductDetailsTwo({
     Key? key,
    
     required this.visible,
-     required this.productModel, 
+     required this.productModel, required this.qty, 
     
  
   }) : super(key: key);
@@ -243,6 +248,7 @@ class ProductDetailsTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final  controller = Get.find<HomeController>();
+    final  cartController = Get.put(CartController());
     final widthScreen = MediaQuery.of(context).size.width;
     return Container(
       margin: EdgeInsets.all(primyDefMargin),
@@ -313,8 +319,19 @@ class ProductDetailsTwo extends StatelessWidget {
                               size: 45.0,
                             ),
                       )
-                    : Text(''),
+                    :  InkWell(
+                        onTap: () {
+                          cartController.removeOneProduct(productModel);
+                        },
+                        child: Icon(
+                              Icons.delete,
+                              color:  Colors.red,
+                                 
+                              size: 35.0,
+                            ),
+                      ),
                 countCartTwo(
+                  qty: qty,
           productModel: productModel,
                 ),
               ],
@@ -328,11 +345,12 @@ class ProductDetailsTwo extends StatelessWidget {
 
 class countCartTwo extends StatelessWidget {
   final Product productModel;
+  final String qty;
   // finl int 
   
   countCartTwo({
     Key? key,
- required this.productModel, 
+ required this.productModel, required this.qty, 
   }) : super(key: key);
 
   @override
@@ -340,7 +358,7 @@ class countCartTwo extends StatelessWidget {
     final  controller = Get.find<HomeController>();
     final  cartController = Get.put(CartController());
 
-    return Obx(() => Container(
+    return Container(
       height: 50.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(45.0),
@@ -391,7 +409,7 @@ class countCartTwo extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child:Text(
-                controller.counter.string,
+                qty,
                 style: TextStyle(
                   color: AppColors().black,
                   fontWeight: FontWeight.w500,
@@ -431,7 +449,6 @@ class countCartTwo extends StatelessWidget {
               )),
         ],
       ),
-    ),
     );
   }
 }
