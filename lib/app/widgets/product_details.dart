@@ -93,7 +93,7 @@ class ProductDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 visible == true
-                    ? InkWell(
+                    ? Obx(() => InkWell(
                         onTap: () {
                           isPressed.value = !isPressed.value;
                         },
@@ -104,7 +104,7 @@ class ProductDetails extends StatelessWidget {
                                   : Colors.grey,
                               size: 45.0,
                             ),
-                      )
+                      ))
                     : Text(''),
                     IconButton(onPressed: (){
                       controller.addProductToCart(productModel);
