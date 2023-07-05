@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../data/models/products_cart_model.dart';
 import '../../../services/settingServices.dart';
 import '../../../widgets/buttom_1.dart';
 import '../../../widgets/product_details.dart';
@@ -12,7 +12,7 @@ class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.put(HomeController());
+    // final HomeController controller = Get.put(HomeController());
     final heightScreen = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
@@ -23,17 +23,18 @@ class HomeView extends GetView<HomeController> {
               builder: (controller) {
                 // ignore: unnecessary_null_comparison
                 return controller.isLoading == true
-                    ? CircularProgressIndicator()
+                    ? Center(child: CircularProgressIndicator())
                     : ListView.builder(
-                        itemCount: controller.proCart!.products.length,
+                        itemCount: controller.productsCartModel!.products.length,
                         itemBuilder: (context, index) => ProductDetails(
-                          productsCartModel: controller.proCart!,
+                          index: index,
+                     productModel: controller.productsCartModel!.products[index],
                             visible: true,
                             imageLink:
-                                controller.proCart!.products[index].thumbnail,
+                                controller.productsCartModel!.products[index].thumbnail,
                             details:
-                                controller.proCart!.products[index].category,
-                            product: controller.proCart!.products[index].title),
+                                controller.productsCartModel!.products[index].category,
+                            product: controller.productsCartModel!.products[index].title),
                       );
               },
             ),
@@ -44,7 +45,7 @@ class HomeView extends GetView<HomeController> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 50.0),
                   child:  Bottom_1Widget(
-                    basketCount:myBox!.get('counter') ,
+                    basketCount:controller.counter.string ,
                     visible: true,
                     text: 'basket',
                     ontap: () {

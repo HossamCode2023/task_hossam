@@ -6,6 +6,7 @@ import 'package:task_hossam/app/modules/home/controllers/home_controller.dart';
 
 
 import '../constant/colors.dart';
+import '../services/settingServices.dart';
 
 class Bottom_1Widget extends StatelessWidget {
   final text;
@@ -54,12 +55,12 @@ class Bottom_1Widget extends StatelessWidget {
                 
                 borderRadius: BorderRadius.circular(45.0),
               ),
-              child: Center(child:  Obx(() =>  Text(controller.counter.value.toString(),style: TextStyle(
+              child: Center(child:  Text(basketCount,style: TextStyle(
                         color: AppColors().red,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                        ),
-                       ),)),
+                       ),),
                        
               ):Text(''),
                   ],

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,6 +15,8 @@ import '../../../services/failures.dart';
 import '../../../services/logger.dart';
 import '../../../services/network.dart';
 
+
+
 class HomeController extends GetxController {
   final NetworkManager _networkManager = NetworkManager(Dio());
   final _log = logger(ProductRemoteDataSource);
@@ -20,10 +24,8 @@ class HomeController extends GetxController {
   bool isLoading = true;
   var isPressed1 = false.obs;
 
-  ProductsCartModel? proCart;
-
-  
-
+  ProductsCartModel? productsCartModel;
+ Map testProduct = {};
   Future<Object> getProduct(Map<String, dynamic> data) async {
     try {
       final response = await _networkManager.request(
@@ -32,12 +34,20 @@ class HomeController extends GetxController {
       _log.i(response.data);
       isLoading = false;
       update();
-      proCart = ProductsCartModel.fromJson(response.data);
+      //======================== test ==========================
+      productsCartModel = ProductsCartModel.fromJson(response.data);
+     testProduct.addAll(response.data);
+      update();
+      print('======================== testProduct =====================');
+      print(testProduct['products'][0]);
+      print('======================== testProduct =====================');
+
+      //======================== test ==========================
 
       update();
 
-      print('======================${proCart!.products.length}');
-      return Right(response.data!);
+      print('======================${productsCartModel!.products.length}');
+      return Right(productsCartModel!.products);
     } catch (e) {
       return Left(SomthingWrongFailures());
     }
@@ -62,46 +72,51 @@ class HomeController extends GetxController {
   }
 
   void increment() {
-    counter.value++;
+    
     if (counter >= 1) {
-      Get.snackbar('Product Added', 'You have added $counter Products',
-       duration: Duration(seconds: 3),
-       snackPosition: SnackPosition.TOP,
-      icon: FaIcon(
-                  FontAwesomeIcons.cartArrowDown,
-                  color: AppColors().black,
-                  size: 15,
-                ),
+      Get.snackbar(
+        'Product Added',
+        'You have added $counter Products',
+        duration: Duration(seconds: 3),
+        snackPosition: SnackPosition.TOP,
+        icon: FaIcon(
+          FontAwesomeIcons.cartArrowDown,
+          color: AppColors().black,
+          size: 15,
+        ),
       );
-update();
-    myBox!.put('counter' , counter.toString());
+      
+      update();
+ myBox!.put('counter', counter.toString());
     print('=================counter =========$counter');
     print('=================myBox =========${myBox!.get('counter')}');
-
     }
-    
-
+   counter.value++;
   }
-
+//  void addQty(int index){
+//   if (productsCartModel!.products[index].qty! == null) {
+//     productsCartModel!.products[index].qty =  (productsCartModel!.products[index].qty! + 1);
+//   }
+//  }
   void descrement() {
     if (counter.value > 0) {
       counter.value--;
-      myBox!.put('counter' , counter.toString());
-    print('=================counter =========$counter');
-    print('=================myBox =========${myBox!.get('counter')}');
+      myBox!.put('counter', counter.toString());
+      print('=================counter =========$counter');
+      print('=================myBox =========${myBox!.get('counter')}');
       update();
-    }else if(counter == 0){
-       Get.snackbar('Alert', 'You have not Products',
-       duration: Duration(seconds: 3),
-       snackPosition: SnackPosition.TOP,
-      icon: FaIcon(
-                  FontAwesomeIcons.box,
-                  color: AppColors().black,
-                  size: 15,
-                ),
+    } else if (counter == 0) {
+      Get.snackbar(
+        'Alert',
+        'You have not Products',
+        duration: Duration(seconds: 3),
+        snackPosition: SnackPosition.TOP,
+        icon: FaIcon(
+          FontAwesomeIcons.box,
+          color: AppColors().black,
+          size: 15,
+        ),
       );
     }
   }
-
-
 }
