@@ -166,7 +166,8 @@ class countCart extends StatelessWidget {
                 onPressed: () {
                   controller.increment();
                   cartController.addProductToCart(productModel );
-                                    controller.update();
+                 cartController.update();
+                  controller.update();
 
                 // controller.addQty(index);
                 },
@@ -210,6 +211,8 @@ class countCart extends StatelessWidget {
                 onPressed: () {
                   controller.descrement();
                   cartController.removeProductsFromCart(productModel);
+                  cartController.update();
+                  controller.update();
                 },
                 icon: FaIcon(
                   FontAwesomeIcons.minus,
@@ -312,7 +315,7 @@ class ProductDetailsTwo extends StatelessWidget {
                       )
                     : Text(''),
                 countCartTwo(
-          // productModel: productModel,
+          productModel: productModel,
                 ),
               ],
             ),
@@ -324,18 +327,18 @@ class ProductDetailsTwo extends StatelessWidget {
 }
 
 class countCartTwo extends StatelessWidget {
-  // final Product productModel;
+  final Product productModel;
   // finl int 
   
   countCartTwo({
     Key? key,
-//  required this.productModel, 
+ required this.productModel, 
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final  controller = Get.find<HomeController>();
-    // final  cartController = Get.put(CartController());
+    final  cartController = Get.put(CartController());
 
     return Obx(() => Container(
       height: 50.0,
@@ -372,10 +375,10 @@ class countCartTwo extends StatelessWidget {
               ),
               child: IconButton(
                 onPressed: () {
-                  controller.update();
                   controller.increment();
-                  // cartController.addProductToCart(productModel );
-                
+                  cartController.addProductToCart(productModel );
+                cartController.update();
+                  controller.update();
                 },
                 icon: FaIcon(
                   FontAwesomeIcons.plus,
@@ -416,6 +419,9 @@ class countCartTwo extends StatelessWidget {
               child: IconButton(
                 onPressed: () {
                   controller.descrement();
+                  cartController.removeProductsFromCart(productModel);
+                  cartController.update();
+                  controller.update();
                 },
                 icon: FaIcon(
                   FontAwesomeIcons.minus,
